@@ -7,14 +7,11 @@ class ConfigurationService {
     return config?.value;
   }
 
-  async setConfig(
-    name: string,
-    value: mongoose.Schema.Types.Mixed
-  ): Promise<any> {
+  async setConfig(name: string, value: any): Promise<any> {
     const config = await ConfigSchema.findOneAndUpdate(
       { name: name },
       { name: name || "", value: value },
-      { upsert: true }
+      { upsert: true, new: true }
     );
     return config;
   }
@@ -29,12 +26,12 @@ class ConfigurationService {
     if (config) {
       await config.remove();
     }
+    return config;
   }
 
   async deleteAllConfigs(): Promise<any> {
     await ConfigSchema.deleteMany({});
   }
-
 }
 
 export default new ConfigurationService();

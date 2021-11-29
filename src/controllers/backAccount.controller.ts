@@ -1,7 +1,9 @@
 import express, { Request, Response } from "express";
 import { Schema } from "mongoose";
+import { removeAllListeners } from "process";
 import { IAccount } from "../model/interface/account.interface";
 import BankAccountService from "../services/account.service";
+import configService from "../services/config.service";
 
 class BankAccount {
 
@@ -28,6 +30,16 @@ class BankAccount {
   async createBankAccount(req: Request, res: Response) {
     try {
       const data: IAccount = req.body
+
+      const remainingPercentage = await configService.getConfig("remaining_percentage")
+
+      if (remainingPercentage < data.accountPercentage) {
+        res.status(422).json("The percentage is too high")
+        return
+      }
+
+      await configService.setConfig("remaining_percentage", Number(remainingPercentage) - Number(data.accountPercentage));
+
       const account: IAccount =
         await BankAccountService.create(data);
       res.status(201).json(account);

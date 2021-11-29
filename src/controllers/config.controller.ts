@@ -28,7 +28,7 @@ class ConfigurationController {
     try {
       const config: IConfig | null = await ConfigurationService.setConfig(
         req.params.name,
-        req.body
+        req.body.value
       );
       res.status(200).json(config);
     } catch (error: any) {
