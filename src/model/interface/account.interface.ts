@@ -15,6 +15,6 @@ export interface IAccount extends mongoose.Document {
   description: string;
   bankName: string;
   bankAccountNumber: string;
-  accountPercentage: Number;
+  accountPercentage: number;
   color: string
 }

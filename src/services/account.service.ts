@@ -19,8 +19,8 @@ class Account {
     return req;
   }
 
-  async update(id: mongoose.Schema.Types.ObjectId, account: IAccount): Promise<IAccount|null> {
-    const req = await AccountSchema.findByIdAndUpdate(id, account, { new: true });
+  async update(id: string, account: IAccount): Promise<IAccount|null> {
+    const req = await AccountSchema.findByIdAndUpdate(id, account, { upsert: false, new: true });
     return req;
   }
 
