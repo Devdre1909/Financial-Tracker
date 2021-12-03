@@ -1,7 +1,9 @@
 {
   "scripts": {
     "dev": "nodemon",
-    "test": "jest"
+    "test": "jest --runInBand -c jest.config.js --collectCoverage false",
+    "build:server": "tsc --build tsconfig.server.json",
+    "test:coverage": "jest --runInBand -c jest.config.js --coverage true"
   },
   "dependencies": {
     "chalk": "^4.1.2",
@@ -14,6 +16,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.16.0",
     "@shelf/jest-mongodb": "^2.1.0",
     "@types/chalk": "^2.2.0",
     "@types/cors": "^2.8.12",

@@ -14,7 +14,7 @@ class Account {
     return req;
   }
 
-  async create(account: IAccount): Promise<IAccount> {
+  async create(account: Partial<IAccount>): Promise<IAccount> {
     const req = await AccountSchema.create(account);
     return req;
   }
